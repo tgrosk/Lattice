@@ -1,0 +1,225 @@
+$map: ( 1:8.3333%, 2:16.6666%, 3:25%, 4:33.3333%, 5:41.6666%, 6:50%, 7:58.3333%, 8:66.6666%, 9:75%, 10:83.3333%, 11:91.6666%, 12:100%);
+
+@mixin colflex($colnum) {
+    flex: 0;
+    flex-basis: map-get($map, $colnum);
+}
+
+@mixin coloffset($colnum) {
+    margin-left: map-get($map, $colnum);
+}
+
+@mixin lattice-bp($class, $colnum, $isOffset) {
+    @if $class == xs {
+        @media screen {
+            @if $isOffset == false {
+                @include colflex($colnum);
+            }
+            @else {
+                @include coloffset($colnum);
+            }
+        }
+    }
+
+    @else if $class == sm {
+        @media screen and (min-width: 768px) {
+            @if $isOffset == false {
+                @include colflex($colnum);
+            }
+            @else {
+                @include coloffset($colnum);
+            }
+        }
+    }
+
+    @else if $class == md {
+        @media screen and (min-width: 992px) {
+            @if $isOffset == false {
+                @include colflex($colnum);
+            }
+            @else {
+                @include coloffset($colnum);
+            }
+        }
+    }
+
+    @else if $class == lg {
+        @media screen and (min-width: 1200px) {
+            @if $isOffset == false {
+                @include colflex($colnum);
+            }
+            @else {
+                @include coloffset($colnum);
+            }
+        }
+    }
+
+    @else {
+        @warn "lattice-bp mixin supports: xs, sm, md, lg";
+    }
+}
+
+.lattice-row {
+    display: flex;
+    flex-wrap: wrap;
+    /* With gutters*/
+    &-gutters {
+        > .lattice-col {
+            padding: .5rem;
+        }
+    }
+
+    &-reverse {
+        flex-direction: row-reverse;
+    }
+    /* Alignment per row */
+    &-top {
+        align-items: flex-start;
+    }
+
+    &-bottom {
+        align-items: flex-end;
+    }
+
+    &-center {
+        align-items: center;
+    }
+
+    &-fit > .lattice-col {
+        flex: 1;
+    }
+
+    &-full > .lattice-col {
+        flex: 0 1 100% !important;
+    }
+
+    &-one-half > .lattice-col {
+        flex: 0 0 50% !important;
+    }
+
+    &-one-third > .lattice-col {
+        flex: 0 1 33.3333% !important;
+    }
+
+    &-one-quarter > .lattice-col {
+        flex: 0 1 25% !important;
+    }
+}
+
+/* Columns */
+.lattice-col {
+    flex: 1;
+    align-items: stretch;
+    /* Alignment per column */
+    &-top {
+        align-self: flex-start;
+    }
+
+    &-bottom {
+        align-self: flex-end;
+    }
+
+    &-center {
+        align-self: center;
+    }
+  
+    &-fullheight {
+      display: flex;
+    }
+
+    $i: 0;
+
+    @while $i <= 12 {
+        &-#{$i} {
+            @include lattice-bp(xs, $i, false);
+        }
+
+        $i: $i+1;
+    }
+
+
+    &-sm {
+        $i: 0;
+
+        @while $i <= 12 {
+            &-#{$i} {
+                @include lattice-bp(sm, $i, false);
+            }
+
+            $i: $i+1;
+        }
+    }
+
+    &-md {
+        $i: 0;
+
+        @while $i <= 12 {
+            &-#{$i} {
+                @include lattice-bp(md, $i, false);
+            }
+
+            $i: $i+1;
+        }
+    }
+
+    &-lg {
+        $i: 0;
+
+        @while $i <= 12 {
+            &-#{$i} {
+                @include lattice-bp(lg, $i, false);
+            }
+
+            $i: $i+1;
+        }
+    }
+
+    &-offset {
+        $i: 0;
+
+        @while $i <= 12 {
+            &-#{$i} {
+                @include lattice-bp(xs, $i, true);
+            }
+
+            $i: $i+1;
+        }
+
+
+        &-sm {
+            $i: 0;
+
+            @while $i <= 12 {
+                &-#{$i} {
+                    @include lattice-bp(sm, $i, true);
+                }
+
+                $i: $i+1;
+            }
+        }
+
+        &-md {
+            $i: 0;
+
+            @while $i <= 12 {
+                &-#{$i} {
+                    @include lattice-bp(md, $i, true);
+                }
+
+                $i: $i+1;
+            }
+        }
+
+        &-lg {
+            $i: 0;
+
+            @while $i <= 12 {
+                &-#{$i} {
+                    @include lattice-bp(lg, $i, true);
+                }
+
+                $i: $i+1;
+            }
+        }
+    }
+}
