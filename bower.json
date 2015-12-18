@@ -1,0 +1,24 @@
+{
+  "name": "Lattice",
+  "version": "0.0.1-alpha",
+  "homepage": "https://github.com/bradyhullopeter/Lattice",
+  "authors": [
+    "bradyhullopeter <brady.hullopeter@gmail.com>"
+  ],
+  "description": "A responsive grid system based on CSS Flexbox",
+  "main": "lattice.scss",
+  "keywords": [
+    "grid",
+    "flexbox",
+    "flex",
+    "responsive"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
