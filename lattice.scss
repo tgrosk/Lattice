@@ -1,61 +1,138 @@
 $map: ( 1:8.3333%, 2:16.6666%, 3:25%, 4:33.3333%, 5:41.6666%, 6:50%, 7:58.3333%, 8:66.6666%, 9:75%, 10:83.3333%, 11:91.6666%, 12:100%);
 
-@mixin colflex($colnum) {
+@mixin lattice-flex-column($colnum) {
     flex: 0;
     flex-basis: map-get($map, $colnum);
 }
 
-@mixin coloffset($colnum) {
+@mixin lattice-offset($colnum) {
     margin-left: map-get($map, $colnum);
 }
 
-@mixin lattice-bp($class, $colnum, $isOffset) {
+@mixin lattice-offset-breakpoint($class, $colnum) {
+    @include lattice-breakpoint($class) {
+        @include lattice-offset($colnum);
+    }
+}
+
+@mixin lattice-col-breakpoint($class, $colnum) {
+    @include lattice-breakpoint($class) {
+        @include lattice-flex-column($colnum);
+    }
+}
+
+@mixin lattice-breakpoint($class) {
     @if $class == xs {
         @media screen {
-            @if $isOffset == false {
-                @include colflex($colnum);
-            }
-            @else {
-                @include coloffset($colnum);
-            }
+            @content;
         }
     }
 
     @else if $class == sm {
         @media screen and (min-width: 768px) {
-            @if $isOffset == false {
-                @include colflex($colnum);
-            }
-            @else {
-                @include coloffset($colnum);
-            }
+            @content;
         }
     }
 
     @else if $class == md {
         @media screen and (min-width: 992px) {
-            @if $isOffset == false {
-                @include colflex($colnum);
-            }
-            @else {
-                @include coloffset($colnum);
-            }
+            @content;
         }
     }
 
     @else if $class == lg {
         @media screen and (min-width: 1200px) {
-            @if $isOffset == false {
-                @include colflex($colnum);
-            }
-            @else {
-                @include coloffset($colnum);
-            }
+            @content;
         }
     }
 
     @else {
-        @warn "lattice-bp mixin supports: xs, sm, md, lg";
+        @warn "lattice-breakpoint mixin supports: xs, sm, md, lg";
+    }
+}
+
+@mixin lattice-vis-breakpoint($class) {
+    @if $class == xs {
+        @media (max-width: 767px) {
+            @content;
+        }
+    }
+
+    @else if $class == sm {
+        @media (min-width: 768px) and (max-width: 991px) {
+            @content;
+        }
+    }
+
+    @else if $class == md {
+        @media (min-width: 992px) and (max-width: 1199px) {
+            @content;
+        }
+    }
+
+    @else if $class == lg {
+        @media screen and (min-width: 1200px) {
+            @content;
+        }
+    }
+
+    @else {
+        @warn "lattice-breakpoint mixin supports: xs, sm, md, lg";
+    }
+}
+
+.lattice {
+
+    &-hidden {
+
+        @include lattice-vis-breakpoint(xs) {
+            display: none;
+        }
+
+
+        &-sm {
+            @include lattice-vis-breakpoint(sm) {
+                display: none;
+            }
+        }
+
+        &-md {
+            @include lattice-vis-breakpoint(md) {
+                display: none;
+            }
+        }
+
+        &-lg {
+            @include lattice-vis-breakpoint(lg) {
+                display: none;
+            }
+        }
+    }
+
+    &-visible {
+
+        @include lattice-vis-breakpoint(xs) {
+            display: initial;
+        }
+
+
+        &-sm {
+            @include lattice-vis-breakpoint(sm) {
+                display: initial;
+            }
+        }
+
+        &-md {
+            @include lattice-vis-breakpoint(md) {
+                display: initial;
+            }
+        }
+
+        &-lg {
+            @include lattice-vis-breakpoint(lg) {
+                display: initial;
+            }
+        }
     }
 }
 
@@ -67,6 +144,79 @@ $map: ( 1:8.3333%, 2:16.6666%, 3:25%, 4:33.3333%, 5:41.6666%, 6:50%, 7:58.3333%,
         > .lattice-col {
             padding: .5rem;
         }
+
+        &-between {
+            > .lattice-col {
+                padding: 0 .5rem;
+
+                &:first-child {
+                    padding-left: 0;
+                }
+
+                &:last-child {
+                    padding-right: 0;
+                }
+            }
+        }
+
+        &-around {
+            > .lattice-col {
+                padding: .5rem 0;
+            }
+
+            &:first-child {
+                padding-left: .5rem;
+            }
+
+            &:last-child {
+                padding-right: .5rem;
+            }
+        }
+    }
+
+
+    &-nowrap {
+        flex-wrap: nowrap;
+
+         &-sm {
+            @include lattice-breakpoint(sm) {
+                flex-wrap: nowrap;
+            }
+        }
+
+        &-md {
+            @include lattice-breakpoint(md) {
+                flex-wrap: nowrap;
+            }
+        }
+
+        &-lg {
+            @include lattice-breakpoint(lg) {
+                flex-wrap: nowrap;
+            }
+        }
+    }
+
+    &-wrap {
+        flex-wrap: wrap;
+
+        &-sm {
+            @include lattice-breakpoint(sm) {
+                flex-wrap: wrap;
+            }
+        }
+
+        &-md {
+            @include lattice-breakpoint(md) {
+                flex-wrap: wrap;
+            }
+        }
+
+        &-lg {
+            @include lattice-breakpoint(lg) {
+                flex-wrap: wrap;
+            }
+        }
     }
 
     &-reverse {
@@ -77,12 +227,32 @@ $map: ( 1:8.3333%, 2:16.6666%, 3:25%, 4:33.3333%, 5:41.6666%, 6:50%, 7:58.3333%,
         align-items: flex-start;
     }
 
+    &-right {
+        justify-content: flex-end;
+    }
+
+    &-left {
+        justify-content: flex-start;
+    }
+
+    &-around {
+        justify-content: space-around;
+    }
+
+    &-between {
+        justify-content: space-between;
+    }
+
     &-bottom {
         align-items: flex-end;
     }
 
-    &-center {
+    &-v-center {
         align-items: center;
+    }
+
+    &-h-center {
+        justify-content: center;
     }
 
     &-fit > .lattice-col {
@@ -109,7 +279,6 @@ $map: ( 1:8.3333%, 2:16.6666%, 3:25%, 4:33.3333%, 5:41.6666%, 6:50%, 7:58.3333%,
 /* Columns */
 .lattice-col {
     flex: 1;
-    align-items: stretch;
     /* Alignment per column */
     &-top {
         align-self: flex-start;
@@ -122,16 +291,21 @@ $map: ( 1:8.3333%, 2:16.6666%, 3:25%, 4:33.3333%, 5:41.6666%, 6:50%, 7:58.3333%,
     &-center {
         align-self: center;
     }
-  
+
+    &-right {
+        display: flex;
+        justify-content: flex-end;
+    }
+
     &-fullheight {
-      display: flex;
+        display: flex;
     }
 
     $i: 0;
 
     @while $i <= 12 {
         &-#{$i} {
-            @include lattice-bp(xs, $i, false);
+            @include lattice-flex-column($i);
         }
 
         $i: $i+1;
@@ -143,7 +317,7 @@ $map: ( 1:8.3333%, 2:16.6666%, 3:25%, 4:33.3333%, 5:41.6666%, 6:50%, 7:58.3333%,
 
         @while $i <= 12 {
             &-#{$i} {
-                @include lattice-bp(sm, $i, false);
+                @include lattice-col-breakpoint(sm, $i);
             }
 
             $i: $i+1;
@@ -155,7 +329,7 @@ $map: ( 1:8.3333%, 2:16.6666%, 3:25%, 4:33.3333%, 5:41.6666%, 6:50%, 7:58.3333%,
 
         @while $i <= 12 {
             &-#{$i} {
-                @include lattice-bp(md, $i, false);
+                @include lattice-col-breakpoint(md, $i);
             }
 
             $i: $i+1;
@@ -167,7 +341,7 @@ $map: ( 1:8.3333%, 2:16.6666%, 3:25%, 4:33.3333%, 5:41.6666%, 6:50%, 7:58.3333%,
 
         @while $i <= 12 {
             &-#{$i} {
-                @include lattice-bp(lg, $i, false);
+                @include lattice-col-breakpoint(lg, $i);
             }
 
             $i: $i+1;
@@ -179,7 +353,7 @@ $map: ( 1:8.3333%, 2:16.6666%, 3:25%, 4:33.3333%, 5:41.6666%, 6:50%, 7:58.3333%,
 
         @while $i <= 12 {
             &-#{$i} {
-                @include lattice-bp(xs, $i, true);
+                @include lattice-offset($i);
             }
 
             $i: $i+1;
@@ -191,7 +365,7 @@ $map: ( 1:8.3333%, 2:16.6666%, 3:25%, 4:33.3333%, 5:41.6666%, 6:50%, 7:58.3333%,
 
             @while $i <= 12 {
                 &-#{$i} {
-                    @include lattice-bp(sm, $i, true);
+                    @include lattice-offset-breakpoint(sm, $i);
                 }
 
                 $i: $i+1;
@@ -203,7 +377,7 @@ $map: ( 1:8.3333%, 2:16.6666%, 3:25%, 4:33.3333%, 5:41.6666%, 6:50%, 7:58.3333%,
 
             @while $i <= 12 {
                 &-#{$i} {
-                    @include lattice-bp(md, $i, true);
+                    @include lattice-offset-breakpoint(md, $i);
                 }
 
                 $i: $i+1;
@@ -215,7 +389,7 @@ $map: ( 1:8.3333%, 2:16.6666%, 3:25%, 4:33.3333%, 5:41.6666%, 6:50%, 7:58.3333%,
 
             @while $i <= 12 {
                 &-#{$i} {
-                    @include lattice-bp(lg, $i, true);
+                    @include lattice-offset-breakpoint(lg, $i);
                 }
 
                 $i: $i+1;
