@@ -162,14 +162,14 @@ $map: ( 1:8.3333%, 2:16.6666%, 3:25%, 4:33.3333%, 5:41.6666%, 6:50%, 7:58.3333%,
         &-around {
             > .lattice-col {
                 padding: .5rem 0;
-            }
-
-            &:first-child {
+              
+              &:first-child {
                 padding-left: .5rem;
-            }
-
-            &:last-child {
+              }
+              
+              &:last-child {
                 padding-right: .5rem;
+              }
             }
         }
     }
