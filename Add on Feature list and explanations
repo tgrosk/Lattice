@@ -1,0 +1,22 @@
+So one of the advantages you have in your framework is that it is significantly lighter than everything else because it is only a bare bones structure framework at this point.
+
+The two things that I prefer about foundation is that I can customize exactly what I need and DL a site specific version of the framework, and the UI isn't clearly a foundation website like you get with bootstrap. 
+
+To maintain these advantages I thinks its in the best interest of the framework to have its own website so framework users can DL exactly what they need for their site rather than getting the full version and removing the unnecessary CSS/JS. 
+
+
+
+
+Navigation
+
+Drawer - Left and Right
+
+Sticky Nav
+
+Sticky at point
+
+Pagination
+
+Breadcrumbs
+
+Accordian based Nav
