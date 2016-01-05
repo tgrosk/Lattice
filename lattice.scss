@@ -141,11 +141,13 @@ $map: ( 1:8.3333%, 2:16.6666%, 3:25%, 4:33.3333%, 5:41.6666%, 6:50%, 7:58.3333%,
     flex-wrap: wrap;
     /* With gutters*/
     &-gutters {
+        @extend .lattice-row;
         > .lattice-col {
             padding: .5rem;
         }
 
         &-between {
+            @extend .lattice-row;
             > .lattice-col {
                 padding: 0 .5rem;
 
@@ -160,6 +162,7 @@ $map: ( 1:8.3333%, 2:16.6666%, 3:25%, 4:33.3333%, 5:41.6666%, 6:50%, 7:58.3333%,
         }
 
         &-around {
+            @extend .lattice-row;
             > .lattice-col {
                 padding: .5rem 0;
               
@@ -176,21 +179,25 @@ $map: ( 1:8.3333%, 2:16.6666%, 3:25%, 4:33.3333%, 5:41.6666%, 6:50%, 7:58.3333%,
 
 
     &-nowrap {
+        @extend .lattice-row;
         flex-wrap: nowrap;
 
          &-sm {
+            @extend .lattice-row;
             @include lattice-breakpoint(sm) {
                 flex-wrap: nowrap;
             }
         }
 
         &-md {
+            @extend .lattice-row;
             @include lattice-breakpoint(md) {
                 flex-wrap: nowrap;
             }
         }
 
         &-lg {
+            @extend .lattice-row;
             @include lattice-breakpoint(lg) {
                 flex-wrap: nowrap;
             }
@@ -198,21 +205,25 @@ $map: ( 1:8.3333%, 2:16.6666%, 3:25%, 4:33.3333%, 5:41.6666%, 6:50%, 7:58.3333%,
     }
 
     &-wrap {
+        @extend .lattice-row;
         flex-wrap: wrap;
 
         &-sm {
+            @extend .lattice-row;
             @include lattice-breakpoint(sm) {
                 flex-wrap: wrap;
             }
         }
 
         &-md {
+            @extend .lattice-row;
             @include lattice-breakpoint(md) {
                 flex-wrap: wrap;
             }
         }
 
         &-lg {
+            @extend .lattice-row;
             @include lattice-breakpoint(lg) {
                 flex-wrap: wrap;
             }
@@ -220,30 +231,37 @@ $map: ( 1:8.3333%, 2:16.6666%, 3:25%, 4:33.3333%, 5:41.6666%, 6:50%, 7:58.3333%,
     }
 
     &-reverse {
+        @extend .lattice-row;
         flex-direction: row-reverse;
     }
     /* Alignment per row */
     &-top {
+        @extend .lattice-row;
         align-items: flex-start;
     }
 
     &-right {
+        @extend .lattice-row;
         justify-content: flex-end;
     }
 
     &-left {
+        @extend .lattice-row;
         justify-content: flex-start;
     }
 
     &-around {
+        @extend .lattice-row;
         justify-content: space-around;
     }
 
     &-between {
+        @extend .lattice-row;
         justify-content: space-between;
     }
 
     &-bottom {
+        @extend .lattice-row;
         align-items: flex-end;
     }
 
@@ -252,27 +270,43 @@ $map: ( 1:8.3333%, 2:16.6666%, 3:25%, 4:33.3333%, 5:41.6666%, 6:50%, 7:58.3333%,
     }
 
     &-h-center {
+        @extend .lattice-row;
         justify-content: center;
     }
 
-    &-fit > .lattice-col {
+    &-fit {
+      @extend .lattice-row;
+      > .lattice-col {
         flex: 1;
+      }
     }
 
-    &-full > .lattice-col {
+    &-full {
+      @extend .lattice-row;
+      > .lattice-col {
         flex: 0 1 100% !important;
+      }
     }
 
-    &-one-half > .lattice-col {
+    &-one-half {
+      @extend .lattice-row;
+      > .lattice-col {
         flex: 0 0 50% !important;
+      }
     }
 
-    &-one-third > .lattice-col {
+    &-one-third {
+      @extend .lattice-row;
+      > .lattice-col {
         flex: 0 1 33.3333% !important;
+      }
     }
 
-    &-one-quarter > .lattice-col {
+    &-one-quarter {
+      @extend .lattice-row;
+      > .lattice-col {
         flex: 0 1 25% !important;
+      }
     }
 }
 
@@ -298,6 +332,7 @@ $map: ( 1:8.3333%, 2:16.6666%, 3:25%, 4:33.3333%, 5:41.6666%, 6:50%, 7:58.3333%,
     }
 
     &-fullheight {
+        @extend .lattice-col;
         display: flex;
     }
 
@@ -305,6 +340,7 @@ $map: ( 1:8.3333%, 2:16.6666%, 3:25%, 4:33.3333%, 5:41.6666%, 6:50%, 7:58.3333%,
 
     @while $i <= 12 {
         &-#{$i} {
+            @extend .lattice-col;
             @include lattice-flex-column($i);
         }
 
@@ -317,6 +353,7 @@ $map: ( 1:8.3333%, 2:16.6666%, 3:25%, 4:33.3333%, 5:41.6666%, 6:50%, 7:58.3333%,
 
         @while $i <= 12 {
             &-#{$i} {
+                @extend .lattice-col;
                 @include lattice-col-breakpoint(sm, $i);
             }
 
@@ -329,6 +366,7 @@ $map: ( 1:8.3333%, 2:16.6666%, 3:25%, 4:33.3333%, 5:41.6666%, 6:50%, 7:58.3333%,
 
         @while $i <= 12 {
             &-#{$i} {
+                @extend .lattice-col;
                 @include lattice-col-breakpoint(md, $i);
             }
 
@@ -341,6 +379,7 @@ $map: ( 1:8.3333%, 2:16.6666%, 3:25%, 4:33.3333%, 5:41.6666%, 6:50%, 7:58.3333%,
 
         @while $i <= 12 {
             &-#{$i} {
+                @extend .lattice-col;
                 @include lattice-col-breakpoint(lg, $i);
             }
 
@@ -353,6 +392,7 @@ $map: ( 1:8.3333%, 2:16.6666%, 3:25%, 4:33.3333%, 5:41.6666%, 6:50%, 7:58.3333%,
 
         @while $i <= 12 {
             &-#{$i} {
+                @extend .lattice-col;
                 @include lattice-offset($i);
             }
 
@@ -365,6 +405,7 @@ $map: ( 1:8.3333%, 2:16.6666%, 3:25%, 4:33.3333%, 5:41.6666%, 6:50%, 7:58.3333%,
 
             @while $i <= 12 {
                 &-#{$i} {
+                    @extend .lattice-col;
                     @include lattice-offset-breakpoint(sm, $i);
                 }
 
@@ -377,6 +418,7 @@ $map: ( 1:8.3333%, 2:16.6666%, 3:25%, 4:33.3333%, 5:41.6666%, 6:50%, 7:58.3333%,
 
             @while $i <= 12 {
                 &-#{$i} {
+                    @extend .lattice-col;
                     @include lattice-offset-breakpoint(md, $i);
                 }
 
@@ -389,6 +431,7 @@ $map: ( 1:8.3333%, 2:16.6666%, 3:25%, 4:33.3333%, 5:41.6666%, 6:50%, 7:58.3333%,
 
             @while $i <= 12 {
                 &-#{$i} {
+                    @extend .lattice-col;
                     @include lattice-offset-breakpoint(lg, $i);
                 }
 
